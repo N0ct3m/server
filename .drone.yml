@@ -1,11 +1,9 @@
 build:
-  sqlite:
-    image: morrisjobke/nextcloud-ci-php7:1.0
+  frontend:
+    image: php
     commands:
-      - git submodule update --init
-      - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database sqlite --database-pass=''
-      - ./autotest.sh sqlite
-  sqlite2:
+      - php -r "echo 'abc';"
+  backend:
     image: morrisjobke/nextcloud-ci-php7:1.0
     commands:
       - git submodule update --init
