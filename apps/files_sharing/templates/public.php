@@ -66,26 +66,29 @@ OCP\Util::addscript('files', 'keyboardshortcuts');
 		<div class="header-right">
 			<span id="details">
 				<?php
-				if ($_['server2serversharing']) {
-					?>
-					<span id="save" data-protected="<?php p($_['protected']) ?>"
-						  data-owner-display-name="<?php p($_['displayName']) ?>" data-owner="<?php p($_['owner']) ?>" data-name="<?php p($_['filename']) ?>">
-					<button id="save-button"><?php p($l->t('Add to your ownCloud')) ?></button>
-					<form class="save-form hidden" action="#">
-						<input type="text" id="remote_address" placeholder="example.com/owncloud"/>
-						<button id="save-button-confirm" class="icon-confirm svg" disabled></button>
-					</form>
-				</span>
+				if (!isset($_['hideFileList']) || (isset($_['hideFileList']) && $_['hideFileList'] === false)) {
+					if ($_['server2serversharing']) {
+						?>
+						<span id="save" data-protected="<?php p($_['protected']) ?>"
+							  data-owner-display-name="<?php p($_['displayName']) ?>" data-owner="<?php p($_['owner']) ?>" data-name="<?php p($_['filename']) ?>">
+						<button id="save-button"><?php p($l->t('Add to your ownCloud')) ?></button>
+						<form class="save-form hidden" action="#">
+							<input type="text" id="remote_address" placeholder="example.com/owncloud"/>
+							<button id="save-button-confirm" class="icon-confirm svg" disabled></button>
+						</form>
+					</span>
+					<?php } ?>
+					<a href="<?php p($_['downloadURL']); ?>" id="download" class="button">
+						<img class="svg" alt="" src="<?php print_unescaped(image_path("core", "actions/download.svg")); ?>"/>
+						<span id="download-text"><?php p($l->t('Download'))?></span>
+					</a>
 				<?php } ?>
-				<a href="<?php p($_['downloadURL']); ?>" id="download" class="button">
-					<img class="svg" alt="" src="<?php print_unescaped(image_path("core", "actions/download.svg")); ?>"/>
-					<span id="download-text"><?php p($l->t('Download'))?></span>
-				</a>
 			</span>
 		</div>
-</div></header>
+	</div></header>
 <div id="content-wrapper">
 	<div id="content">
+		<?php if (!isset($_['hideFileList']) || (isset($_['hideFileList']) && $_['hideFileList'] === false)): ?>
 		<div id="preview">
 			<?php if (isset($_['folder'])): ?>
 				<?php print_unescaped($_['folder']); ?>
@@ -112,7 +115,9 @@ OCP\Util::addscript('files', 'keyboardshortcuts');
 				</div>
 			<?php endif; ?>
 		</div>
+		<?php endif; ?>
 	</div>
+
 	<footer>
 		<p class="info">
 			<?php print_unescaped($theme->getLongFooter()); ?>

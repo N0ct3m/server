@@ -37,8 +37,9 @@
 	<h2><?php p($l->t('No entries found in this folder')); ?></h2>
 	<p></p>
 </div>
-
-<table id="filestable" data-allow-public-upload="<?php p($_['publicUploadEnabled'])?>" data-preview-x="32" data-preview-y="32">
+<?php
+if (!isset($_['hideFileList']) || (isset($_['hideFileList']) && $_['hideFileList'] === false)): ?>
+	<table id="filestable" data-allow-public-upload="<?php p($_['publicUploadEnabled'])?>" data-preview-x="32" data-preview-y="32">
 	<thead>
 		<tr>
 			<th id='headerName' class="hidden column-name">
@@ -72,7 +73,8 @@
 	</tbody>
 	<tfoot>
 	</tfoot>
-</table>
+		</table>
+<?php endif; ?>
 <input type="hidden" name="dir" id="dir" value="" />
 <div class="hiddenuploadfield">
 	<input type="file" id="file_upload_start" class="hiddenuploadfield" name="files[]"
