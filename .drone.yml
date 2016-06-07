@@ -2,7 +2,7 @@ build:
   frontend:
     image: php
     commands:
-      - php -r "echo 'abcd';"
+      - php -r "echo 'abcde';"
   backend:
     image: morrisjobke/nextcloud-ci-php7:1.0
     commands:
